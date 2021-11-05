@@ -15,6 +15,14 @@ $error="";
       }
          
     }
+    // delete task
+if (isset($_GET['del_task'])) {
+	$id = $_GET['del_task'];
+
+	mysqli_query($database, "DELETE FROM taches WHERE id=".$id);
+	header('location: index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +59,7 @@ $error="";
                 <tr>
                     <td><?php echo $num; ?></td>
                     <td class="tache"> <?php echo $row['tache']; ?> </td>
-                    <td class="supprimer"><a href="index.php?del_task=<?php echo $row['id'] ?>">sup</a></td>
+                    <td class="supprimer"><a href="index.php?del_task=<?php echo $row['id'] ?>">X</a></td>
                 </tr>
                 <?php $num++; } ?>
             </tbody>
