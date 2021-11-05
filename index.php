@@ -15,12 +15,24 @@ $error="";
       }
          
     }
-    // delete task
-if (isset($_GET['del_task'])) {
-	$id = $_GET['del_task'];
+    // delete tach
+if (isset($_GET['supprimer_tache'])) {
+	$id = $_GET['supprimer_tache'];
 
 	mysqli_query($database, "DELETE FROM taches WHERE id=".$id);
 	header('location: index.php');
+}
+//modifier tache
+if(isset($_GET['modifier_tache'])){
+    $id =$_GET['modifier_tache'];
+    $update = true;
+		$record = mysqli_query($database, "SELECT * FROM taches WHERE id=$id");
+
+		
+			$n = mysqli_fetch_array($record);
+			$tache = $n['tache'];
+			
+		
 }
 
 ?>
@@ -41,6 +53,7 @@ if (isset($_GET['del_task'])) {
             <input type="text" name="tache" class="tache_input">
             <button type="submit"
              name="submit" id="button_add" class="button_add">Ajouter Tache</button>  
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
         </form>
         <table>
             <thead>
@@ -59,7 +72,8 @@ if (isset($_GET['del_task'])) {
                 <tr>
                     <td><?php echo $num; ?></td>
                     <td class="tache"> <?php echo $row['tache']; ?> </td>
-                    <td class="supprimer"><a href="index.php?del_task=<?php echo $row['id'] ?>">X</a></td>
+                    <td class="supprimer"><a href="index.php?supprimer_tache=<?php echo $row['id'] ?>">X</a></td>
+                    <td class="modifier"><a href="index.php?modifier_tache=<?php echo $row['id'] ?>">modifier</a></td>
                 </tr>
                 <?php $num++; } ?>
             </tbody>
