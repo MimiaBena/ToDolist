@@ -1,0 +1,29 @@
+#point{
+    
+    color: blue;
+}
+
+.input_form{
+    width: 80%;
+    height: 20px;
+    padding: 35px;
+    background: blue;
+    border: 5px solid black;
+    border-radius: 15px;
+    margin: 30px auto;
+}
+.tache_input{
+    width: 55%;
+	height: 15px; 
+	padding: 10px;
+	border: 2px solid black;
+}
+.button_add{
+height: 39px;
+	background: gris;
+	color: 	black;
+	border: 2px solid black;
+	border-radius: 5px; 
+	padding: 5px 20px;
+    
+}
