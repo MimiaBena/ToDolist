@@ -12,6 +12,10 @@
     border-radius: 15px;
     margin: 30px auto;
 }
+form p {
+	color: red;
+	margin: 0px;
+}
 .tache_input{
     width: 55%;
 	height: 15px; 
