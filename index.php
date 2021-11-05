@@ -51,7 +51,7 @@ $error="";
                 <tr>
                     <td><?php echo $num; ?></td>
                     <td class="tache"> <?php echo $row['tache']; ?> </td>
-                    <td class="supprimer"><a href="index.php?del_task=<?php echo $row['id'] ?>">x</a></td>
+                    <td class="supprimer"><a href="index.php?del_task=<?php echo $row['id'] ?>">sup</a></td>
                 </tr>
                 <?php $num++; } ?>
             </tbody>
