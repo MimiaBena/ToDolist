@@ -1,8 +1,14 @@
 <?php
-$error="";
-$update = false;
+session_start();
+
+
     //connecter à notre base
     $database=mysqli_connect("localhost", "root", "", "todoliste");
+
+
+    //initialiser les variable
+$error="";
+$update = false;
     
     //condition du button
     if(isset($_POST['submit'])){
@@ -11,6 +17,7 @@ $update = false;
       } else{
          $tache=$_POST['tache'];
          $sql ="INSERT INTO taches (tache) VALUES ('$tache')";
+         $_SESSION['message'] = "tache saved";
         mysqli_query($database, $sql);
     
       }
@@ -19,9 +26,12 @@ $update = false;
     // delete tach
 if (isset($_GET['supprimer_tache'])) {
 	$id = $_GET['supprimer_tache'];
+    
+     $sql ="DELETE FROM taches WHERE id=".$id;
+    $_SESSION['message'] = "tache supprimée!";
+        mysqli_query($database, $sql);
 
-	mysqli_query($database, "DELETE FROM taches WHERE id=".$id);
-	header('location: index.php');
+	
 }
 //modifier tache
 if(isset($_GET['modifier_tache'])){
@@ -39,11 +49,13 @@ if(isset($_GET['modifier_tache'])){
 if (isset($_POST['update'])) {
 	$id = $_POST['id'];
 	$tache = $_POST['tache'];
-	
+	 $sql ="UPDATE taches SET tache='$tache' WHERE id=$id";
+    $_SESSION['message'] = "tache updated!";
+        mysqli_query($database, $sql);
 
-	mysqli_query($database, "UPDATE taches SET tache='$tache' WHERE id=$id");
-	$_SESSION['message'] = "tache updated!"; 
-	header('location: index.php');
+	
+	 
+	
 }
 
 ?>
@@ -55,7 +67,18 @@ if (isset($_POST['update'])) {
         <link rel="stylesheet" type="text/css" href="todolist_css.css">
     </head>
     <body>
+        
        <h1>ToDo List<span id="point">.</span></h1>
+        
+        <?php if (isset($_SESSION['message'])): ?>
+	<div class="message">
+		<?php 
+			echo $_SESSION['message']; 
+			unset($_SESSION['message']);
+		?>
+	</div>
+<?php endif ?>
+        
         <form method="post" action="index.php" class="input_form"> 
              <?php if(isset($error)){?>
             <p><?php echo $error; ?></p>
@@ -78,7 +101,7 @@ if (isset($_POST['update'])) {
                 <tr>
                     <th>Numéro</th>
                     <th>Tâches</th>
-                    <th>Action</th>
+                    <th colspan="2">Action</th>
                 </tr>
             </thead>
                
@@ -98,6 +121,11 @@ if (isset($_POST['update'])) {
         
         
         </table>
+        
+        
+        
+        
+        
     </body>
 
 </html>
